@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .table-bordered {
+        border-color: var(--border-color);
+    }
+    
+    .table-bordered td, .table-bordered th {
+        border-color: var(--border-color);
+    }
+</style>
+
+<h2 class="mb-4">Enrollments</h2>
+<a href="{% url 'enrollment_create' %}" class="btn btn-primary mb-3">
+    Enroll Student
+</a>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Student ID</th>
+            <th>Course</th>
+            <th>Code</th>
+            <th>Date Enrolled</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for enrollment in enrollments %}
+        <tr>
+            <td>{{ enrollment.student.full_name }}</td>
+            <td>{{ enrollment.student.student_id }}</td>
+            <td>{{ enrollment.course.name }}</td>
+            <td>{{ enrollment.course.code }}</td>
+            <td>{{ enrollment.date_enrolled|date:"Y-m-d H:i" }}</td>
+            <td>
+                <a href="{% url 'enrollment_delete' enrollment.pk %}"
+                   class="btn btn-sm btn-danger">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center">No enrollments found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

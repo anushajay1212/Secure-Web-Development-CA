@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .form-control, .form-select {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+        border-radius: 8px;
+        padding: 0.625rem 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus, .form-select:focus {
+        background: var(--bg-card-hover);
+        border-color: var(--accent-blue);
+        color: var(--text-primary);
+        box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+    }
+    
+    .form-label {
+        color: var(--text-secondary);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .text-center a {
+        color: var(--accent-blue);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .text-center a:hover {
+        color: var(--accent-blue-hover);
+        text-decoration: underline;
+    }
+    
+    .alert-danger {
+        background: rgba(239, 68, 68, 0.1);
+        color: var(--accent-red-hover);
+        border-color: var(--accent-red);
+    }
+</style>
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <h2 class="mb-4 text-center">Student Login</h2>
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <form method="post" class="card card-body shadow-sm">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input name="username" type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input name="password" type="password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+        <p class="text-center mt-3">
+            New student?
+            <a href="{% url 'student_register' %}">Register here</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
